@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import {Form} from 'react-bootstrap'
 import {FormGroup} from 'react-bootstrap'
 import {Col} from 'react-bootstrap'
@@ -8,17 +8,65 @@ import {Checkbox} from 'react-bootstrap'
 import {Button} from 'react-bootstrap'
 
 class LoginForm extends React.Component {
+
+    state= {
+      username: '',
+      password:'',
+      flash: '',
+      token: ''
+    };
+
+    handelSubmit = (event) => {
+      event.preventDefault();
+      // console.log(this.state)
+      const token = this.state.token
+      // this.setState({ username: '', password: '' })
+
+      fetch("http://localhost:3249/auth/login", {
+        method: 'POST',
+        headers: new Headers({'Content-Type':  'application/json'
+      }),
+        body:  JSON.stringify(this.state),
+    })
+    .then(res => res.json())
+    .then(data => {
+      // console.log(data)
+      if(!data.user) {
+        //alert class danger user don't exist
+      }
+      else {
+        //store the token
+        // console.log(data.token)
+        this.setState({"token": data.token})
+        window.localStorage.setItem(token, token)
+      }
+    })
+    // .then(data => console.log(data.token))
+
+    // .then(
+    //   res => this.setState({"token": res.token})
+    // //   res  =>  this.setState({"flash":  res.flash}),
+    // //   err  =>  this.setState({"flash":  err.flash})
+    // )
+  };
+
   render() {
     return(
       <div>
         <h2>Formulaire de connexion</h2>
-        <Form horizontal>
+        <Form horizontal onSubmit={this.handelSubmit}>
           <FormGroup controlId="formHorizontalEmail">
             <Col componentClass={ControlLabel} sm={12} xl={12}>
               Email
             </Col>
             <Col sm={12} xl={12} lg={12}>
-              <FormControl type="email" placeholder="Email" />
+              <FormControl
+                type="text"
+                placeholder="Username"
+                name="username"
+                value={this.state.username}
+                onChange={ (event) => this.setState({ username: event.target.value }) }
+              />
             </Col>
           </FormGroup>
 
@@ -27,7 +75,13 @@ class LoginForm extends React.Component {
               Password
             </Col>
             <Col sm={12}>
-              <FormControl type="password" placeholder="Password" />
+              <FormControl
+                value={this.state.password}
+                onChange={ (event) => this.setState({ password: event.target.value }) }
+                type="password"
+                placeholder="Password"
+                name="password"
+              />
             </Col>
           </FormGroup>
 
@@ -39,10 +93,13 @@ class LoginForm extends React.Component {
 
           <FormGroup>
             <Col smOffset={12} sm={12}>
-              <Button bsStyle='success' type="submit">Sign in</Button>
+              <Button bsStyle='success' type="submit">Login</Button>
             </Col>
           </FormGroup>
         </Form>
+        <p className="status-message">
+          {this.state.token ? JSON.stringify(this.state.username) : 'Vous n etes pas connecter'}
+        </p>
       </div>
     )
   }
