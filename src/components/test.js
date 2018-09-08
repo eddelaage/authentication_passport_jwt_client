@@ -37,9 +37,8 @@ class LoginForm extends React.Component {
         //store the token
         // console.log(data.token)
         this.setState({"token": data.token})
-        localStorage.setItem('token', this.state.token)
+        localStorage.setItem(token, data.token)
         console.log(localStorage)
-        console.log(this.state)
 
       }
     })
@@ -54,15 +53,13 @@ class LoginForm extends React.Component {
     }
 
     handelClick = (event) => {
-      // event.preventDefault();
-      const token = localStorage.getItem('token')
-      console.log(token)
+      event.preventDefault();
       fetch("http://localhost:3249/test/", {
       method: 'GET',
       headers: new Headers({
         'Accept': 'application/json',
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + token,
+        Authorization: 'Bearer' + this.state.token,
       })
     })
     .then(res => res.json())
