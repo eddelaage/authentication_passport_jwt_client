@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
 import './App.css';
-import Form from './components/Form.js'
+import LoginForm from './components/LoginForm.js'
+import RegistrationForm from './components/RegistrationForm.js'
 
 class App extends Component {
   render() {
     return (
       <div className="App">
         <h1>Exercice de connection deconnexion</h1>
-        <Form />
+        <LoginForm />
+        <RegistrationForm />
       </div>
     );
   }
