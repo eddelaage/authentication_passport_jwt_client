@@ -108,18 +108,19 @@ class RegistrationForm extends React.Component {
     this.setState({ validation })
     this.submitted = true
 
-    // if (validation.isValid) {
-    //   fetch('', {
-    //     method: 'POST',
-    //     headers: new Headers({'Content-Type': 'application/json'
-    //     }),
-    //     body: JSON.stringify(this.state)
-    //   })
-    //     .then(res => res.json())
-    //     .then(
-    //       res => this.setState({'flash': res.flash}),
-    //       err => this.setState({'flash': err.flash})
-    //     )
+    if (validation.isValid) {
+      fetch('http://localhost:3249/auth/signup/', {
+        method: 'POST',
+        headers: new Headers({'Content-Type': 'application/json'
+        }),
+        body: JSON.stringify(this.state)
+      })
+        .then(res => res.json())
+        // .then(
+        //   res => this.setState({'flash': res.flash}),
+        //   err => this.setState({'flash': err.flash})
+        // )
+        .catch(err => console.log(err))
 
     //   fetch('https://edouarddelaage-server.herokuapp.com/auth/send-email', {
     //     method: 'POST',
@@ -128,6 +129,7 @@ class RegistrationForm extends React.Component {
     //     body: JSON.stringify(this.state)
     //   })
     // }
+    }
   }
 
   render () {
