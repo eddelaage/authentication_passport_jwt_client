@@ -13,7 +13,8 @@ class LoginForm extends React.Component {
       username: '',
       password:'',
       flash: '',
-      token: ''
+      token: '',
+      isLogin: false
     };
 
     handelSubmit = (event) => {
@@ -36,11 +37,10 @@ class LoginForm extends React.Component {
       else {
         //store the token
         // console.log(data.token)
-        this.setState({"token": data.token})
+        this.setState({"token": data.token, "isLogin": true})
         localStorage.setItem('token', this.state.token)
         console.log(localStorage)
         console.log(this.state)
-
       }
     })
     // .then(data => console.log(data.token))
@@ -54,7 +54,7 @@ class LoginForm extends React.Component {
     }
 
     handelClick = (event) => {
-      // event.preventDefault();
+      event.preventDefault();
       const token = localStorage.getItem('token')
       console.log(token)
       fetch("http://localhost:3249/test/", {
@@ -69,11 +69,23 @@ class LoginForm extends React.Component {
     .catch(err => console.log(err))
     }
 
+    handelClickDisconnected = (event) => {
+      // event.preventDefault();
+      localStorage.clear()
+      this.setState({"token": '', isLogin: false, username: '', username: '' })
+      console.log(localStorage)
+    }
+
+
+
+
+
   render() {
+    const isLogin = this.state.isLogin
+    const token = localStorage.getItem('token')
     return(
       <div>
-        <h2>Formulaire de connexion</h2>
-        <Form horizontal onSubmit={this.handelSubmit}>
+          {!isLogin ? <Form horizontal onSubmit={this.handelSubmit}>
           <FormGroup controlId="formHorizontalEmail">
             <Col componentClass={ControlLabel} sm={12} xl={12}>
               Email
@@ -115,10 +127,11 @@ class LoginForm extends React.Component {
               <Button bsStyle='success' type="submit">Login</Button>
             </Col>
           </FormGroup>
-        </Form>
+        </Form> : '' }
         <p className="status-message">
-          {this.state.token ? JSON.stringify(this.state.username) : 'Vous n etes pas connecter'}
+          {this.state.token ? `Bonjour ${JSON.stringify(this.state.username)} vous êtes bien connécté` : 'Vous n etes pas connecter'}
         </p>
+        {this.state.isLogin ? <Button onClick={this.handelClickDisconnected} bsStyle='warning' id="disconnected">Se deconnecter</Button> : '' }
         <Button onClick={this.handelClick} bsStyle='success' type="submit">Route test</Button>
       </div>
     )
