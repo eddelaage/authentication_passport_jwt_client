@@ -155,7 +155,7 @@ class RegistrationForm extends React.Component {
               />
             </Col>
           </FormGroup>
-          <span className="help-block">{validation.email.message}</span>
+          {this.submitted ? <span className="alert alert-danger">{validation.email.message}</span> : ''}
 
           <FormGroup controlId="formHorizontalRegistrationPassword">
             <Col componentClass={ControlLabel} sm={12} xl={12}>
@@ -171,7 +171,7 @@ class RegistrationForm extends React.Component {
               />
             </Col>
           </FormGroup>
-          <span className="help-block">{validation.password.message}</span>
+          {this.submitted ? <span className="alert alert-danger">{validation.password.message}</span> : ''}
 
           <FormGroup controlId="formHorizontalFirstName">
             <Col componentClass={ControlLabel} sm={12} xl={12}>
@@ -187,7 +187,7 @@ class RegistrationForm extends React.Component {
               />
             </Col>
           </FormGroup>
-          <span className="help-block">{validation.firstName.message}</span>
+          {this.submitted ? <span className="alert alert-danger">{validation.firstName.message}</span> : ''}
 
            <FormGroup controlId="formHorizontalLastName">
               <Col componentClass={ControlLabel} sm={12} xl={12}>
@@ -203,7 +203,7 @@ class RegistrationForm extends React.Component {
                 />
               </Col>
           </FormGroup>
-          <span className="help-block">{validation.lastName.message}</span>
+          {this.submitted ? <span className="alert alert-danger">{validation.lastName.message}</span> : ''}
 
           <FormGroup controlId="formHorizontalBirthDate">
             <Col componentClass={ControlLabel} sm={12} xl={12}>
@@ -219,7 +219,7 @@ class RegistrationForm extends React.Component {
               />
             </Col>
           </FormGroup>
-          <span className="help-block">{validation.birthDate.message}</span>
+          {this.submitted ? <span className="alert alert-danger">{validation.birthDate.message}</span> : ''}
 
           <FormGroup controlId="formHorizontalHomme">
             <Col componentClass={ControlLabel} sm={12} xl={12}>
@@ -253,7 +253,7 @@ class RegistrationForm extends React.Component {
               />
             </Col>
           </FormGroup>
-          <span className="help-block">{validation.gender.message}</span>
+          {this.submitted ? <span className="alert alert-danger">{validation.gender.message}</span> : ''}
 
           <FormGroup>
             <Col smOffset={12} sm={12}>
