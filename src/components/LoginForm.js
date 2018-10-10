@@ -8,14 +8,13 @@ import {Checkbox} from 'react-bootstrap'
 import {Button} from 'react-bootstrap'
 
 class LoginForm extends React.Component {
-
     state= {
       username: '',
       password:'',
       flash: '',
       token: '',
       isLogin: false
-    };
+    }
 
     handelSubmit = (event) => {
       event.preventDefault();
@@ -36,11 +35,11 @@ class LoginForm extends React.Component {
       }
       else {
         //store the token
-        // console.log(data.token)
+        console.log(data.token)
         this.setState({"token": data.token, "isLogin": true})
         localStorage.setItem('token', this.state.token)
-        console.log(localStorage)
-        console.log(this.state)
+        // console.log(localStorage)
+        // console.log(this.state)
       }
     })
     // .then(data => console.log(data.token))
