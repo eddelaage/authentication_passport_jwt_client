@@ -139,6 +139,7 @@ class RegistrationForm extends React.Component {
 
     return (
       <div>
+        <h1>Inscription</h1>
         <Form onSubmit={this.handelSubmit}>
 
           <FormGroup controlId="formHorizontalRegistrationEmail">
