@@ -8,6 +8,7 @@ import RegistrationForm from './components/RegistrationForm.js'
 import Home from './components/Home';
 import AuthService from './components/AuthService'
 import Protected from './components/Protected';
+import NavBar from './components/NavBar';
 
 
 const isAuthenticated = true
@@ -49,12 +50,14 @@ class App extends Component {
     return (
       <Router history={browserHistory}>
         <div className="App">
-          <h1>Exercice de connection deconnexion</h1>
+          
+          {/* <h1>Exercice de connection deconnexion</h1> */}
           <Route path='/AuthService' exact component={AuthService} />
           <Route path='/' exact render={(props) => <LoginForm {...props} addLogin={this.addLogin}/>} />
           {/* <Route path='/' exact component={LoginForm} addLogin={this.addLogin} /> */}
           <Route path='/' exact component={RegistrationForm} />
           {/* <PrivateRoute path={'/home/:id'} component={Home} user={this.state.user} /> */}
+          <PrivateRoute path={'/home/:id'}  component={NavBar}/>
           <PrivateRoute path={'/home/:id'} component={Home} />
           {/* <PrivateRoute path={'/home/:id'} component={() => <Home state={this.state.user}/>} /> */}
           {/* <PrivateRoute path='/home/:id' render={( props ) => <Home {...props}/>} /> */}
